@@ -3,10 +3,10 @@
 # Script module or binary module file associated with this manifest.
 RootModule = 'DSCR_Firewall.psm1'
 
-DscResourcesToExport = '*'
+DscResourcesToExport = 'cFirewall'
 
 # Version number of this module.
-ModuleVersion = '1.0'
+ModuleVersion = '1.0.1'
 
 # ID used to uniquely identify this module
 GUID = '463baeaa-9344-45a8-86a5-e3abca1c61eb'

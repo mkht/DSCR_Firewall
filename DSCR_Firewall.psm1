@@ -35,7 +35,7 @@ class cFirewall
         }
         # Set-NetFirewallProfile -Enabled ($this.Ensure -eq [Ensure]::Present) # Win7では使えないCmdlet
         $fw = New-Object -ComObject hnetcfg.fwpolicy2
-        @($ProfileSet) | where {[Enum]::IsDefined([FwProfile], $_)} | foreach{
+        @($ProfileSet) | Where-Object {[Enum]::IsDefined([FwProfile], $_)} | ForEach-Object {
             try{
                 $fw.FirewallEnabled([FwProfile]$_) = $this.Ensure
             }catch{}
@@ -70,7 +70,7 @@ class cFirewall
         $fw = New-Object -ComObject hnetcfg.fwpolicy2
 
         $Ret.Ensure = [Ensure]::Absent
-        @($ProfileSet) | where {[Enum]::IsDefined([FwProfile], $_)} | foreach {
+        @($ProfileSet) | Where-Object {[Enum]::IsDefined([FwProfile], $_)} | ForEach-Object {
             try{
                 if($fw.FirewallEnabled([FwProfile]$_)){
                     $Ret.CurrentSet += @{Profile=$_; Enabled=$true}
