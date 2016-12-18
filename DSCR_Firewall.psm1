@@ -45,18 +45,19 @@ class cFirewall
     # リソースの状態が適切かどうかをテストします。
     [bool] Test()
     {   
-        if($this.Ensure -eq [Ensure]::Absent){
-            return ($this.Ensure -eq $this.Get().Ensure)
+        $DesiredEnsure = $this.Ensure
+        if($DesiredEnsure -eq [Ensure]::Absent){
+            return ($DesiredEnsure -eq $this.Get().Ensure)
         }
         else{
-            return [bool]!($this.Get().CurrentSet | where {$_.Enabled -eq $false})
+            return [bool]!($this.Get().CurrentSet | Where-Object {$_.Enabled -eq $false})
         }
     }
 
     # リソースの現在の状態を取得します。
     [cFirewall] Get()
     {
-        $Ret = New-Object $this.GetType()
+        $Ret = $this
         $Ret.Profile = $this.Profile
 
         if("All" -eq $this.Profile){
